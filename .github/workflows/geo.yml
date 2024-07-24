@@ -27,9 +27,10 @@ jobs:
           for ip in $(cat ${GITHUB_WORKSPACE}/bestcf.txt)
           do
             local=$(curl -sL http://ip-api.com/json/${ip} | jq -r .countryCode)
+            echo ${ip}#${local}
             echo ${ip}#${local}>>${GITHUB_WORKSPACE}/addressesapi.txt
           done
-          ${GITHUB_WORKSPACE}/bestcf.txt
+          rm -f ${GITHUB_WORKSPACE}/bestcf.txt
 
       - name: Creat Message
         id: msg
