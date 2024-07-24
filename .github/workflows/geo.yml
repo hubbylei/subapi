@@ -29,6 +29,8 @@ jobs:
             local=$(curl -sL http://ip-api.com/json/${ip} | jq -r .countryCode)
             echo ${ip}#${local}>>${GITHUB_WORKSPACE}/addressesapi.txt
           done
+          ${GITHUB_WORKSPACE}/bestcf.txt
+
       - name: Creat Message
         id: msg
         run: |
