@@ -17,21 +17,21 @@ jobs:
       - name: Get IP
         run: |
           echo Get IP
-          curl -s https://raw.githubusercontent.com/ymyuuu/IPDB/main/proxy.txt -o ${GITHUB_WORKSPACE}/proxy.txt
+          curl -s https://raw.githubusercontent.com/ymyuuu/IPDB/main/bestcf.txt -o ${GITHUB_WORKSPACE}/bestcf.txt
 
       - name: GEO
         run: |
           if [ -f ${GITHUB_WORKSPACE}/addressesapi.txt ];then
             rm -f ${GITHUB_WORKSPACE}/addressesapi.txt
           fi
-          for ip in $(cat ${GITHUB_WORKSPACE}/proxy.txt)
+          for ip in $(cat ${GITHUB_WORKSPACE}/bestcf.txt)
           do
             local=$(curl -sL "http://ip-api.com/csv/${ip}?fields=countryCode")
             echo ${ip}#${local}
             echo ${ip}#${local}>>${GITHUB_WORKSPACE}/addressesapi.txt
             sleep 2
           done
-          rm -f ${GITHUB_WORKSPACE}/proxy.txt
+          rm -f ${GITHUB_WORKSPACE}/bestcf.txt
 
       - name: Creat Message
         id: msg
