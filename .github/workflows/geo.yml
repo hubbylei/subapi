@@ -17,7 +17,7 @@ jobs:
       - name: Get IP
         run: |
           echo Get IP
-          curl -s https://raw.githubusercontent.com/ymyuuu/IPDB/main/bestcf.txt -o ${GITHUB_WORKSPACE}/bestcf.txt
+          curl -sL https://ip.164746.xyz/ipTop10.html | awk -F "," '{for(i=1;i<=NF;i++) print $i}' > bestcf.txt
 
       - name: GEO
         run: |
