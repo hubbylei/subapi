@@ -21,17 +21,31 @@ jobs:
 
       - name: GEO
         run: |
-          if [ -f ${GITHUB_WORKSPACE}/addressesapi.txt ];then
-            rm -f ${GITHUB_WORKSPACE}/addressesapi.txt
-          fi
-          for ip in $(cat ${GITHUB_WORKSPACE}/bestcf.txt)
-          do
-            local=$(curl -sL "http://ipwho.is/${ip}?output=csv&fields=country_code")
-            echo ${ip}#${local}
-            echo ${ip}#${local}>>${GITHUB_WORKSPACE}/addressesapi.txt
-            sleep 2
-          done
-          rm -f ${GITHUB_WORKSPACE}/bestcf.txt
+            if [ -f addressesapi.txt ];then
+                rm -f addressesapi.txt
+            fi
+            for ip in $(cat bestcf.txt)
+            do
+                local=$(curl -sL "http://ipwho.is/${ip}?output=csv&fields=country_code")
+                echo ${ip}#${local}>>addresses.txt
+                sleep 2
+            done
+            localtion=$(awk -F "#" '{print $2}' addresses.txt | sort | uniq)
+            for local in ${localtion}
+            do
+                num=1
+                for line in $(cat addresses.txt)
+                do
+                    ip=$(echo $line | awk -F "#" '{print $1}')
+                    tmp=$(echo $line | awk -F "#" '{print $2}')
+                    if [ "${tmp}" == "${local}" ];then
+                        echo ${ip}#${tmp}${num}
+                        echo ${ip}#${tmp}${num}>>addressesapi.txt
+                        num=$((${num}+1))
+                    fi
+                done
+            done
+            rm -f bestcf.txt addresses.txt
 
       - name: Creat Message
         id: msg
