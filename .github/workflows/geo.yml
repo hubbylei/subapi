@@ -2,7 +2,7 @@ name: "Auto Update"
 on:
   workflow_dispatch:
   schedule:
-    - cron: "5 * * * *"
+    - cron: "*/5 * * * *"
 env:
   TZ: Asia/Shanghai
 
