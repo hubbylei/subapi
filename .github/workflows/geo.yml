@@ -32,6 +32,7 @@ jobs:
                 num=$((${num}+1))
                 sleep 2
             done
+            rm  bestcf.txt
 
       - name: Creat Message
         id: msg
