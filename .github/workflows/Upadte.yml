@@ -19,7 +19,7 @@ jobs:
           echo Get IP
           curl -sL https://ip.164746.xyz/ipTop10.html | awk -F "," '{for(i=1;i<=NF;i++) print $i}' > bestcf.txt
 
-      - name: GEO
+      - name: Update
         run: |
             if [ -f addressesapi.txt ];then
                 rm -f addressesapi.txt
