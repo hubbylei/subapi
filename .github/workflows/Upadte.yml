@@ -27,8 +27,7 @@ jobs:
             num=1
             for ip in $(cat bestcf.txt)
             do
-                local=$(curl -sL "http://ipwho.is/${ip}?output=csv&fields=country_code")
-                echo ${ip}#${num}-${local}>>addressesapi.txt
+                echo ${ip}#${num}>>addressesapi.txt
                 num=$((${num}+1))
                 sleep 2
             done
