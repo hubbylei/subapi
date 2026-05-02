@@ -17,21 +17,7 @@ jobs:
       - name: Get IP
         run: |
           echo Get IP
-          curl -sL https://ip.164746.xyz/ipTop10.html | awk -F "," '{for(i=1;i<=NF;i++) print $i}' > bestcf.txt
-
-      - name: Update
-        run: |
-            if [ -f addressesapi.txt ];then
-                rm -f addressesapi.txt
-            fi
-            num=1
-            for ip in $(cat bestcf.txt)
-            do
-                echo ${ip}#${num}>>addressesapi.txt
-                num=$((${num}+1))
-                sleep 2
-            done
-            rm  bestcf.txt
+          curl -skL https://ip.164746.xyz/ipTop10.html | awk -F "," '{for(i=1;i<=NF;i++) print $i}' | awk '{print $1 "#" NR}' > addressesapi.txt
 
       - name: Creat Message
         id: msg
