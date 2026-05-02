@@ -15,14 +15,11 @@ jobs:
         uses: actions/checkout@main
 
       - name: Get IP
-        run: |
-          echo Get IP
-          curl -skL https://ip.164746.xyz/ipTop10.html | awk -F "," '{for(i=1;i<=NF;i++) print $i}' | awk '{print $1 "#" NR}' > addressesapi.txt
+        run: curl -skL https://ip.164746.xyz/ipTop10.html | awk -F "," '{for(i=1;i<=NF;i++) print $i}' | awk '{print $1 "#" NR}' > addressesapi.txt
 
       - name: Creat Message
         id: msg
-        run: |
-            echo "commit_message=Update $(date +"%Y-%m-%d %H:%M:%S")" >> "$GITHUB_OUTPUT"
+        run: echo "commit_message=Update $(date +"%Y-%m-%d %H:%M:%S")" >> "$GITHUB_OUTPUT"
  
       - name: Apply IP Changes
         uses: stefanzweifel/git-auto-commit-action@v5
